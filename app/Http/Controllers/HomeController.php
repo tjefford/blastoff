@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class HomeController extends Controller
 {
-    public function index($count = nil){
+    public function index($count){
       $launches = $this->launches($count);
       return view('welcome')
         ->with('launches', $launches->launches);}
