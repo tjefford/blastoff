@@ -8,8 +8,8 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class HomeController extends Controller
 {
-    public function index($count){
-      $launches = $this->launches($count);
+    public function index(){
+      $launches = $this->launches();
       return view('welcome')
         ->with('launches', $launches->launches);}
 
@@ -39,11 +39,11 @@ class HomeController extends Controller
      *
      * @return json
      */
-    public function launches($count)
+    public function launches()
     {
       // Temporary hardcoded URL
       // TJ - 2008/09/01
-      $result = $this->client()->get('https://launchlibrary.net/1.3/launch/next/'. $count);
+      $result = $this->client()->get('https://launchlibrary.net/1.3/launch/next/5');
 
       return json_decode($result->getBody()->getContents());
     }
