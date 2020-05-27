@@ -8,20 +8,12 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class HomeController extends Controller
 {
-    public function index(){
-      $launches = $this->launches();
-      return view('welcome')
-        ->with('launches', $launches->launches);}
-
-    public function Formatter($record)
+    public function index()
     {
-    $normalized_record = [
-        'name' => $record->name,
-        'rocket' => $record->rocket->name,
-           'mission_description' => $record->missions[0]->description
-      ];
-      // This should work now
-      return $normalized_record;
+      $launches = $this->launches();
+
+      return view('welcome')
+           ->with('launches', $launches->launches);
     }
 
     /**
@@ -41,8 +33,6 @@ class HomeController extends Controller
      */
     public function launches()
     {
-      // Temporary hardcoded URL
-      // TJ - 2008/09/01
       $result = $this->client()->get('https://launchlibrary.net/1.3/launch/next/5');
 
       return json_decode($result->getBody()->getContents());
